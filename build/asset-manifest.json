@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/around-react/static/css/main.a83c9b00.css",
-    "main.js": "/around-react/static/js/main.850a5aa2.js",
+    "main.css": "/around-react/static/css/main.623afcf6.css",
+    "main.js": "/around-react/static/js/main.93ca9d34.js",
     "static/js/787.1c78f32b.chunk.js": "/around-react/static/js/787.1c78f32b.chunk.js",
     "static/media/Inter-Medium.woff": "/around-react/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Black.woff": "/around-react/static/media/Inter-Black.c6938660eec019fefd68.woff",
@@ -14,6 +14,8 @@
     "static/media/like_btn_unactive.svg": "/around-react/static/media/like_btn_unactive.3826c074a1b94b101e38.svg",
     "index.html": "/around-react/index.html",
     "static/media/remove_btn.svg": "/around-react/static/media/remove_btn.c4956c32989e66228de8d03a901d4be3.svg",
+    "static/media/alert_popup_failed.svg": "/around-react/static/media/alert_popup_failed.df8eddf661ff88f2d0efd3d570d14309.svg",
+    "static/media/alert_popup_successfull.svg": "/around-react/static/media/alert_popup_successfull.1b6082f862eac35e2514460237d96ecc.svg",
     "static/media/like_btn_active.svg": "/around-react/static/media/like_btn_active.226461bd64622361ffb2.svg",
     "static/media/header__menu-close.svg": "/around-react/static/media/header__menu-close.718dba2c03f3d5ec87c7904dccf245c1.svg",
     "static/media/close-Icon.svg": "/around-react/static/media/close-Icon.34ed9f0edc9348da3413.svg",
@@ -21,12 +23,12 @@
     "static/media/profile__button-edit.svg": "/around-react/static/media/profile__button-edit.8667ac4a523e8fc42e59641845fc8448.svg",
     "static/media/profile__pic-edit.svg": "/around-react/static/media/profile__pic-edit.a086f758840ae814ecdece4799d2cf40.svg",
     "static/media/profile__button-plus.svg": "/around-react/static/media/profile__button-plus.d86bb2edc2f6eadb96b785d29c82b56e.svg",
-    "main.a83c9b00.css.map": "/around-react/static/css/main.a83c9b00.css.map",
-    "main.850a5aa2.js.map": "/around-react/static/js/main.850a5aa2.js.map",
+    "main.623afcf6.css.map": "/around-react/static/css/main.623afcf6.css.map",
+    "main.93ca9d34.js.map": "/around-react/static/js/main.93ca9d34.js.map",
     "787.1c78f32b.chunk.js.map": "/around-react/static/js/787.1c78f32b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a83c9b00.css",
-    "static/js/main.850a5aa2.js"
+    "static/css/main.623afcf6.css",
+    "static/js/main.93ca9d34.js"
   ]
 }
