@@ -1,8 +1,8 @@
 .popup-box__input-error {
-  font-weight: normal;
+  color: red;
   font-size: 0.75rem;
-  line-height: 1.25;
-  color: #ff0000;
-  transition: 0.3s;
-  margin: 5px 0 13px;
+  font-weight: 400;
+  line-height: 1.242;
+  margin: 5px 0 0;
+  min-height: 30px;
 }

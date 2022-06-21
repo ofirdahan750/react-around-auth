@@ -1,0 +1,5 @@
+.popup-box__wrapper_type_alert {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

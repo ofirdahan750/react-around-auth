@@ -1,0 +1,11 @@
+.popup-box_type_auth {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 358px;
+}
+@media screen and (max-width: 358px) {
+  .popup-box_type_auth {
+    max-width: calc(100% - (15px * 2));
+  }
+}

@@ -1,0 +1,9 @@
+.header__nav-user-loggedin_type_moblie {
+  border-bottom: 1px solid #545454;
+  flex-direction: column;
+  text-align: center;
+  gap: 18px 0;
+  font-size: 1.125rem;
+  line-height: 1.2222222222;
+  animation: slide-in-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}

@@ -6,19 +6,35 @@
 
 /* Keyframe */
 @import url("./keyframe/keyframe.css");
+/* animation modifier */
+@import url("./blocks/animation-modifier/_type/_opacity-hover/animation-modifier_type_opacity-hover.css");
+@import url("./blocks/animation-modifier/_type/_animate-center/animation-modifier_type_animate-center.css");
 
 /* Page */
 @import url("./blocks/page/page.css");
+@import url("./blocks/__content/page__content.css");
 
 /* Root */
 @import url("./blocks/root/root.css");
 
-/* button modifier */
+/* Button modifier */
 @import url("./blocks/button-modifier/button-modifier.css");
+
+/* Link modifier */
+@import url("./blocks/link-modifier/link-modifier.css");
 
 /* Header */
 @import url("./blocks/header/header.css");
+@import url("./blocks//header/__wrapper/header__wrapper.css");
 @import url("./blocks/header/__logo/header__logo.css");
+@import url("./blocks/header/__nav-user-loggedout/header__nav-user-loggedout.css");
+@import url("./blocks/header/__nav-user-loggedin/header__nav-user-loggedin.css");
+@import url("./blocks/header/__nav-user-loggedin/_type/_moblie/header__nav-user-loggedin_type_moblie.css");
+@import url("./blocks/header/__nav-user-email/header__nav-user-email.css");
+@import url("./blocks/header/__nav-user-email/_type_/_moblie/header__nav-user-email header__nav-user-email_type_moblie.css");
+@import url("./blocks/header/__logout-btn/header__logout-btn.css");
+@import url("./blocks/header/__logout-btn/_type_/_moblie/header__logout-btn_type_moblie.css");
+@import url("./blocks/header/__moblie-menu-btn/header__moblie-menu-btn.css");
 
 /* Main */
 @import url("./blocks/main/main.css");
@@ -57,7 +73,6 @@
 
 /* Case of Picture Popup */
 @import url("./blocks/popup-box/__container/_type/_img/popup-box__container_type_img.css");
-@import url("./blocks/popup-box/__close-button/_type/_img/popup-box__close-button_type_img.css");
 @import url("./blocks/popup-box/__wrapper/_type/_img/popup-box__wrapper_type_img.css");
 @import url("./blocks/popup-box/__img/popup-box__img.css");
 @import url("./blocks/popup-box/__img-title/popup-box__img-title.css");
@@ -67,16 +82,25 @@
 @import url("./blocks/popup-box/__form/popup-box__form.css");
 @import url("./blocks/popup-box/__fieldset/popup-box__fieldset.css");
 @import url("./blocks/popup-box/__input/popup-box__input.css");
-@import url("./blocks/popup-box/__input/_type/popup-box__input_type_error.css");
+@import url("./blocks/popup-box/__input/_type/error/popup-box__input_type_error.css");
 @import url("./blocks/popup-box/__input-error/popup-box__input-error.css");
 @import url("./blocks/popup-box/__input-error/_active/popup-box__input-error.css");
-@import url("./blocks/popup-box/__input/_order/_first-input/popup-box__input_order_first-input.css");
-@import url("./blocks/popup-box/__input/_order/_second-input/popup-box__input_order_second-input.css");
 @import url("./blocks/popup-box/__submit-button/popup-box__submit-button.css");
 @import url("./blocks/popup-box/__submit-button/_inactive/popup-box__submit-button_inactive.css");
-
 @import url("./blocks/popup-box/__close-button/_type/_delete-confirm/popup-box__close-button_type_delete-confirm.css");
 @import url("./blocks/popup-box/__submit-button/_type/_delete-confirm/popup-box__submit-button_type_delete-confirm.css");
+
+/* Case of Alert Pop */
+@import url("./blocks/popup-box/__wrapper/_type/_alert/popup-box__wrapper_type_alert.css");
+@import url("./blocks/popup-box/__alert-title/popup-box__alert-title.css");
+@import url("./blocks/popup-box/__close-button/_type/_alert/popup-box__close-button_type_alert.css");
+
+/*  Auth Form modifier */
+@import url("./blocks/popup-box/_type/_auth/popup-box_type_auth.css");
+@import url("./blocks/popup-box/__heading/_type/_auth/popup-box__heading_type_auth.css");
+@import url("./blocks/popup-box/__input/_type/_auth/popup-box__input_type_auth.css");
+@import url("./blocks/popup-box/__submit-button/_type/_auth/popup-box__submit-button_type_auth.css");
+@import url("./blocks/popup-box/__bottom-link/popup-box__bottom-link/popup-box__bottom-link.css");
 
 /* Footer */
 @import url("./blocks/footer/footer.css");

@@ -1,0 +1,6 @@
+.animation-modifier_type_animate-center {
+  -webkit-animation-name: animate-center;
+  -webkit-animation-duration: 1s;
+  animation-name: animate-center;
+  animation-duration: 1s;
+}

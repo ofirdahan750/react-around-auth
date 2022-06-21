@@ -1,0 +1,7 @@
+.header__nav-user-loggedin {
+  display: flex;
+  gap: 0 24px;
+  font-size: 1.125rem;
+  line-height: 1.2222222222;
+  text-align: right;
+}

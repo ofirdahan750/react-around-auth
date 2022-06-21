@@ -1,6 +1,8 @@
 import {getRandomString} from "./utils";
 import spinnerGif from "../images/api/spinner_svg.svg";
 import errImg from "../images/api/error_svg.svg";
+import successfulAlert from "../images/popup-box/alert_popup_successfull.svg";
+import failedAlert from "../images/popup-box/alert_popup_failed.svg";
 const txtErr = "Something went wrong, please try again later ";
 
 const loadingInitState = {
@@ -32,7 +34,8 @@ const formSettingStates = {
     name: "INIT",
     type: "init",
     heading: "Loading...",
-    btnSetting: {txt: "Loading...", isDisable: true}
+    btnSetting: {txt: "Loading...", isDisable: true},
+    alert: {title: "Loading,,", imgSrc: spinnerGif, alt: "loading image..."}
   },
   ADD_ITEM: {
     name: "ADD_ITEM",
@@ -72,6 +75,34 @@ const formSettingStates = {
     btnSetting: {txt: "", isDisable: false},
     link: "",
     isOpen: false
+  },
+  LOG_IN_FROM: {
+    name: "LOGIN_FORM",
+    type: "login",
+    title: "Log in",
+    btnSetting: {txt: "Log in", isDisable: false},
+    bottomLinkTxt: "Not a member? Sign up here!"
+  },
+  SIGN_IN_FROM: {
+    name: "SIGNUP_FORM",
+    type: "signup",
+    title: "Sign up",
+    btnSetting: {txt: "Sign up", isDisable: false},
+    bottomLinkTxt: "Already a member? Log in here!"
+  },
+  ALERT_POPUP_SUCCESSFUL: {
+    name: "ALERT_POPUP_SUCCESSFUL",
+    type: "alert",
+    imgSrc: successfulAlert,
+    alt: '"v" button in black color',
+    title: "Success! You have now been registered."
+  },
+  ALERT_POPUP_FAILED: {
+    name: "ALERT_POPUP_FAILED",
+    type: "alert",
+    alt: '"X" button in red color',
+    imgSrc: failedAlert,
+    title: "Oops, something went wrong! Please try again."
   }
 };
 

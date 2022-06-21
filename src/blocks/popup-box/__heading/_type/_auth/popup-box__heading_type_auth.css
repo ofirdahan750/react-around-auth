@@ -1,0 +1,10 @@
+.popup-box__heading_type_auth {
+  text-align: center;
+  color: #ffffff;
+}
+@media screen and (max-width: 358px) {
+  .popup-box__heading_type_auth {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+}

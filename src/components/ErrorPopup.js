@@ -7,10 +7,10 @@ const ErrorPopup = ({
   closePopup
 }) => {
   const isValidInput = true;
-const handleSubmit = (e) => {
-    e.preventDefault()
-    closePopup()
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    closePopup();
+  };
   return (
     <PopupWithForm
       handleSubmit={handleSubmit}

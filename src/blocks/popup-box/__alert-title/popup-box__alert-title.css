@@ -1,0 +1,12 @@
+.popup-box__alert-title {
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1.2083333333;
+  text-align: center;
+  color: #000000;
+}
+@media screen and (max-width: 650px) {
+  .popup-box__alert-title {
+    font-size: 1.25rem;
+  }
+}

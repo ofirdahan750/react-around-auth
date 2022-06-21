@@ -1,4 +1,11 @@
 import React, {useCallback, useEffect, useState} from "react";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation
+} from "react-router-dom";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import ImagePopup from "../components/ImagePopup.js";
 import EditProfilePopup from "../components/EditProfilePopup.js";
@@ -6,6 +13,7 @@ import EditAvatarPopup from "../components/EditAvatarPopup.js";
 import AddPlacePopup from "../components/AddPlacePopup.js";
 import ConfirmPopup from "../components/ConfirmPopup.js";
 import ErrorPopup from "../components/ErrorPopup.js";
+import AlertPopup from "../components/AlertPopup.js";
 import {
   loadingInitState,
   loadingInitError,
@@ -16,6 +24,11 @@ import api from "../utils/api.js";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
+import {register, authenticate, validateToken} from "../utils/auth";
+import ProtectedRoute from "./ProtectedRoute";
+import Register from "./Register";
+import Login from "./Login";
+
 import {formSettingStates} from "../utils/constants.js";
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,15 +39,25 @@ const App = () => {
   const [isRemovePopupOpen, setIsRemovePopupOpen] = useState(false);
   const [isErrorPopupOpen, setIsErrorPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [alertSetting, setAlertSetting] = useState(
+    formSettingStates.ALERT_POPUP_FAILED
+  );
   const [cards, setCards] = useState(loadingInitState.card);
   const [currentUser, setCurrentUser] = useState(loadingInitState.useInfo);
   const [isValidInput, setValidInput] = useState(false);
   const [validMsg, setValidMsg] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAlertPopupOpen, setIsAlertPopupOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleMsgVaild = (inputVals) => {
     if (
       !isEditProfilePopupOpen &&
       !isAddPlacePopupOpen &&
-      !isEditAvatarPopupOpen
+      !isEditAvatarPopupOpen &&
+      location.pathname !== "/signin" &&
+      location.pathname !== "/signup"
     )
       setValidMsg({});
     else {
@@ -55,27 +78,13 @@ const App = () => {
 
   useEffect(() => {
     //Init only
-    setIsLoading(true);
-    api
-      .getInitInfo()
-      .then(([cardItemsArr, userInfoRes]) => {
-        setIsLoading(false);
-        setCards(cardItemsArr);
-        setCurrentUser(userInfoRes);
-      })
-      .catch((error) => {
-        console.log("error:", error);
-        setCards(loadingInitError.card);
-        setCurrentUser(loadingInitError.useInfo);
-        handleErrorPopupOpen();
-      });
+    onInit();
   }, []);
 
   useEffect(
     () => {
-      setValidInput(false);
-
-      //Set and Remove Popups event
+      setValidInput(false); //Remove the Input error
+      //Set and Remove Popups event esc button
       if (
         isEditProfilePopupOpen ||
         isAddPlacePopupOpen ||
@@ -97,32 +106,44 @@ const App = () => {
       selectedCard
     ]
   );
-  const handleToggleLikedBtn = (isLiked, id) => {
-    if (isLoading) return;
-    if (!isLiked) {
+  useEffect(() => {
+    //Getting AUTH form html text and setting
+    if (location.pathname === "/signin") {
+      setFormSetting(formSettingStates.LOG_IN_FROM);
+    }
+    if (location.pathname === "/signup") {
+      setFormSetting(formSettingStates.SIGN_IN_FROM);
+    }
+  }, [location.pathname]);
+  const onInit = () => {
+    const jwt = localStorage.getItem("jwt") || false;
+    if (jwt) {
+      setIsLoggedIn(true);
+      setIsLoading(true);
       api
-        .addItemLike(id)
-        .then((res) => {
-          const newState = [...cards];
-          newState.find((item) => item._id === id).likes = res.likes;
-          setCards(newState);
+        .getInitInfo()
+        .then(([cardItemsArr, userInfoRes]) => {
+          navigate("/");
+          validateToken(jwt)
+            .then((res) => {
+              setCurrentUser({...userInfoRes, email: res.data.email});
+              setCards(cardItemsArr);
+              setIsLoading(false);
+            })
+            .catch((err) => {
+              console.log(`Error: ${err}`);
+              onHandleBtnText("Log in", true, err);
+            });
         })
-        .catch((err) => {
-          console.log(`Error: ${err}`);
+        .catch((error) => {
+          console.log("error:", error);
+          setCards(loadingInitError.card);
+          setCurrentUser(loadingInitError.useInfo);
           handleErrorPopupOpen();
         });
     } else {
-      api
-        .removeItemLike(id)
-        .then((res) => {
-          const newState = [...cards];
-          newState.find((item) => item._id === id).likes = res.likes;
-          setCards(newState);
-        })
-        .catch((err) => {
-          console.log(`Error: ${err}`);
-          handleErrorPopupOpen();
-        });
+      setIsLoggedIn(false);
+      navigate("/signin");
     }
   };
   const handleEditProfileClick = () => {
@@ -155,14 +176,25 @@ const App = () => {
     setIsErrorPopupOpen(true);
     setFormSetting(formSettingStates.POPUP_ERROR);
   };
+  const handleAlertPopupOpen = (isSuccessful) => {
+    setIsAlertPopupOpen(true);
+    setAlertSetting(
+      formSettingStates[
+        isSuccessful ? "ALERT_POPUP_SUCCESSFUL" : "ALERT_POPUP_FAILED"
+      ]
+    );
+    setTimeout(() => {
+      closeAllPopup();
+    }, 3000);
+  };
   const closeAllPopup = () => {
-    onHandleBtnText("Close...", true);
     setTimeout(() => {
       setIsEditProfilePopupOpen(false);
       setIsAddPlacePopupOpen(false);
       setIsEditAvatarPopupOpen(false);
       setIsRemovePopupOpen(false);
       setIsErrorPopupOpen(false);
+      setIsAlertPopupOpen(false);
       setSelectedCard((prevState) => ({
         ...prevState,
         isOpen: false
@@ -207,6 +239,34 @@ const App = () => {
     }
     // eslint-disable-next-line
   }, []);
+  const handleToggleLikedBtn = (isLiked, id) => {
+    if (isLoading) return;
+    if (!isLiked) {
+      api
+        .addItemLike(id)
+        .then((res) => {
+          const newState = [...cards];
+          newState.find((item) => item._id === id).likes = res.likes;
+          setCards(newState);
+        })
+        .catch((err) => {
+          console.log(`Error: ${err}`);
+          handleErrorPopupOpen();
+        });
+    } else {
+      api
+        .removeItemLike(id)
+        .then((res) => {
+          const newState = [...cards];
+          newState.find((item) => item._id === id).likes = res.likes;
+          setCards(newState);
+        })
+        .catch((err) => {
+          console.log(`Error: ${err}`);
+          handleErrorPopupOpen();
+        });
+    }
+  };
   const handleSubmitRemoveCard = (e) => {
     e.preventDefault();
     onHandleBtnText();
@@ -278,22 +338,100 @@ const App = () => {
         onHandleBtnText("Save", true, err);
       });
   };
+
+  const handleNewUserSubmit = ({email, password}) => {
+    onHandleBtnText("Signing up...");
+    register({email, password})
+      .then(() => {
+        handleAlertPopupOpen(true);
+        console.log(isAlertPopupOpen);
+        navigate("/signin");
+      })
+      .catch((err) => {
+        handleAlertPopupOpen(false);
+        onHandleBtnText("Sign up", true, err);
+        console.log(isAlertPopupOpen);
+      });
+  };
+
+  const handleSubmitLogInFrom = ({email, password}) => {
+    onHandleBtnText("Logging in...");
+    authenticate({email, password})
+      .then((user) => {
+        setCurrentUser({...currentUser, email});
+        localStorage.setItem("jwt", user.token);
+        setIsLoggedIn(true);
+        onInit();
+      })
+      .catch((err) => {
+        onHandleBtnText("Log in", true, err);
+      });
+  };
+  const handleLogOutclicked = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("jwt");
+  };
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__content">
-        <Header />
-        <Main
-          currentUser={currentUser}
-          cards={cards}
-          setFormSetting={setFormSetting}
-          onEditProfile={handleEditProfileClick}
-          onAddElement={handleAddElementClick}
-          onEditAvatarClick={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          closeAllPopup={closeAllPopup}
-          handleToggleLikedBtn={handleToggleLikedBtn}
-          handleRemoveCardClick={handleRemoveCardClick}
+        <Header
+          isLoggedIn={isLoggedIn}
+          handleLogOutclicked={handleLogOutclicked}
+          isLoading={isLoading}
         />
+        <Routes>
+          <Route
+            path="/signin"
+            element={
+              <Login
+                isLoading={isLoading}
+                onSubmit={handleSubmitLogInFrom}
+                onSetVaildMsg={onSetVaildMsg}
+                validMsg={validMsg}
+                handleMsgVaild={handleMsgVaild}
+                isValidInput={isValidInput}
+                formSetting={formSetting}
+                isLoggedIn={isLoggedIn}
+              />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Register
+                isLoading={isLoading}
+                onSubmit={handleNewUserSubmit}
+                onSetVaildMsg={onSetVaildMsg}
+                validMsg={validMsg}
+                handleMsgVaild={handleMsgVaild}
+                isValidInput={isValidInput}
+                formSetting={formSetting}
+                isLoggedIn={isLoggedIn}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Main
+                  currentUser={currentUser}
+                  cards={cards}
+                  setFormSetting={setFormSetting}
+                  onEditProfile={handleEditProfileClick}
+                  onAddElement={handleAddElementClick}
+                  onEditAvatarClick={handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  closeAllPopup={closeAllPopup}
+                  handleToggleLikedBtn={handleToggleLikedBtn}
+                  handleRemoveCardClick={handleRemoveCardClick}
+                  isLoading={isLoading}
+                />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
         <Footer />
         <AddPlacePopup
           onSetVaildMsg={onSetVaildMsg}
@@ -349,6 +487,12 @@ const App = () => {
           handlePopupMouseDown={handlePopupMouseDown}
           txtErr={txtErr}
           errImg={errImg}
+        />
+        <AlertPopup
+          alertSetting={alertSetting}
+          isOpen={isAlertPopupOpen}
+          closePopup={closeAllPopup}
+          handlePopupMouseDown={handlePopupMouseDown}
         />
       </div>
     </CurrentUserContext.Provider>

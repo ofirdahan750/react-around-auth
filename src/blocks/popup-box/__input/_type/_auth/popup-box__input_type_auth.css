@@ -1,0 +1,6 @@
+.popup-box__input_type_auth {
+  all: unset;
+  border-bottom: 2px solid #ccc;
+  font-size: 0.9375rem;
+  min-height: 27px;
+}

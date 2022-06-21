@@ -1,10 +1,12 @@
 import React, {useContext} from "react";
 import removeBtn from "../images/places/remove_btn.svg";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
+import spinnerGif from "../images/api/spinner_svg.svg";
+
 const Card = ({
   card: {name, link, likes, owner, _id},
   handleRemoveCardClick,
-  spinnerGif,
+  isLoading,
   onCardClick,
   handleToggleLikedBtn
 }) => {
@@ -22,7 +24,11 @@ const Card = ({
       <div
         onClick={openImagePopup}
         className="places__img"
-        style={{backgroundImage: `url(${link || spinnerGif})`}}
+        style={
+          !isLoading
+            ? {backgroundImage: `url(${link})`}
+            : {backgroundImage: `url(${spinnerGif})`}
+        }
       >
         {owner._id === currentUser._id && (
           <button

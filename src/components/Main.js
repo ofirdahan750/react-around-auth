@@ -14,11 +14,12 @@ const Main = ({
   onEditAvatarClick,
   onCardClick,
   handleToggleLikedBtn,
-  handleRemoveCardClick
+  handleRemoveCardClick,
+  isLoading
 }) => {
   const {avatar, about, _id, name} = useContext(CurrentUserContext);
   return (
-    <main className="main">
+    <main className="main animation-modifier_type_animate-center">
       <section className="profile">
         <div
           className="profile__avatar-cover"
@@ -44,7 +45,7 @@ const Main = ({
           <h1 className="profile__name">{name || "Loading..."}</h1>
           <button
             type="button"
-            className="profile__edit-btn-cover button-modifier"
+            className="profile__edit-btn-cover button-modifier animation-modifier_type_opacity-hover"
             onClick={onEditProfile}
           >
             <img
@@ -57,7 +58,7 @@ const Main = ({
         </div>
         <button
           type="button"
-          className="profile__add-btn-cover button-modifier"
+          className="profile__add-btn-cover button-modifier animation-modifier_type_opacity-hover"
           onClick={onAddElement}
         >
           <img
@@ -74,7 +75,7 @@ const Main = ({
               <Card
                 key={card._id}
                 card={card}
-                spinnerGif={spinnerGif}
+                isLoading={isLoading}
                 setFormSetting={setFormSetting}
                 onCardClick={onCardClick}
                 handleToggleLikedBtn={handleToggleLikedBtn}

@@ -19,7 +19,7 @@ const PopupWithForm = ({
       <div className="popup-box__container">
         <button
           type="button"
-          className="popup-box__close-button button-modifier"
+          className="popup-box__close-button button-modifier animation-modifier_type_opacity-hover"
           onClick={closeAllPopup}
         ></button>
         <div className="popup-box__wrapper">
@@ -28,7 +28,7 @@ const PopupWithForm = ({
             <fieldset className="popup-box__fieldset">
               {children}
               <button
-                className={`popup-box__submit-button button-modifier ${
+                className={`popup-box__submit-button button-modifier animation-modifier_type_opacity-hover${
                   type === "confirm"
                     ? "popup-box__submit-button_type_delete-confirm"
                     : ""

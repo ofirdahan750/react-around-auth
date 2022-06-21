@@ -1,0 +1,5 @@
+.header__nav-user-email {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

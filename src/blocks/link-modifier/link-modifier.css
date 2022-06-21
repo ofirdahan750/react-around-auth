@@ -1,0 +1,4 @@
+.link-modifier > * {
+  all: unset;
+  cursor: pointer;
+}

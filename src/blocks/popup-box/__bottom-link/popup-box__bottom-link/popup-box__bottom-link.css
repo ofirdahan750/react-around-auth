@@ -1,0 +1,13 @@
+.popup-box__bottom-link {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.2142857143;
+  text-align: center;
+  color: #ffffff;
+}
+@media screen and (max-width: 358px) {
+  .popup-box__bottom-link {
+    font: 0.75rem;
+    line-height: 1.25;
+  }
+}
