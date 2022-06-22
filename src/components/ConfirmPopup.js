@@ -16,7 +16,7 @@ const ConfirmPopup = ({
       closePopup={closePopup}
       handlePopupMouseDown={handlePopupMouseDown}
       isValidInput={isValidInput}
-    ></PopupWithForm>
+    />
   );
 };
 export default ConfirmPopup;

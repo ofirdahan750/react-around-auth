@@ -61,9 +61,7 @@ const AddPlacePopup = ({
         placeholder="Image link"
         required
       />
-      <span className={`popup-box__input-error`}>
-        {validMsg.urlInput || ""}
-      </span>
+      <span className="popup-box__input-error">{validMsg.urlInput || ""}</span>
     </PopupWithForm>
   );
 };

@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "push": "git add . && git commit -m \"Init\" && git push",
+    "push": "git add . && git commit -m \"Fix small issue about code convention\" && git push",
     "fullpush": "npm run push && npm run deploy"
   },
   "eslintConfig": {

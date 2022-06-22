@@ -15,12 +15,14 @@ const EditAvatarPopup = ({
   useEffect(() => {
     currInput.current.value = "";
   }, [isOpen]);
-  const handleSubmit = (e) => {
-    handleSubmitChangeProfilePic(e, currInput.current.value);
-  };
+
   useEffect(() => {
     handleMsgVaild({val: currInput.current.value});
   }, [currInput.current.value]);
+
+  const handleSubmit = (e) => {
+    handleSubmitChangeProfilePic(e, currInput.current.value);
+  };
   return (
     <PopupWithForm
       handleSubmit={handleSubmit}

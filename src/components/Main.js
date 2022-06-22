@@ -26,9 +26,7 @@ const Main = ({
           style={{
             backgroundImage: `url(${avatar || spinnerGif})`
           }}
-          onClick={() => {
-            onEditAvatarClick();
-          }}
+          onClick={onEditAvatarClick}
         >
           <button
             className="profile__avatar-btn button-modifier"
@@ -70,19 +68,17 @@ const Main = ({
       </section>
       <section className="places">
         <ul className="places__grid-container">
-          {cards.map((card) => {
-            return (
-              <Card
-                key={card._id}
-                card={card}
-                isLoading={isLoading}
-                setFormSetting={setFormSetting}
-                onCardClick={onCardClick}
-                handleToggleLikedBtn={handleToggleLikedBtn}
-                handleRemoveCardClick={handleRemoveCardClick}
-              />
-            );
-          })}
+          {cards.map((card) => (
+            <Card
+              key={card._id}
+              card={card}
+              isLoading={isLoading}
+              setFormSetting={setFormSetting}
+              onCardClick={onCardClick}
+              handleToggleLikedBtn={handleToggleLikedBtn}
+              handleRemoveCardClick={handleRemoveCardClick}
+            />
+          ))}
         </ul>
       </section>
     </main>

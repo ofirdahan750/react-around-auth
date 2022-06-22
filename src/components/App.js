@@ -69,6 +69,7 @@ const App = () => {
       setValidInput(isFormVaild || false);
     }
   };
+
   const onSetVaildMsg = (inputVal, msg) => {
     setValidMsg({
       ...validMsg,
